@@ -1,78 +1,64 @@
-import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import Products from "./pages/Products";
-import Cart from "./pages/Cart";
+import ProductList from "./ProductList";
+import CartItem from "./CartItem";
+import AboutUs from "./AboutUs";
 import "./App.css";
 
-// App holds the shared cart state so it stays consistent across pages.
+function LandingPage() {
+  const navigate = useNavigate();
+
+  return (
+    <div className="landing-page">
+      <section className="landing-hero">
+        <div className="landing-content">
+          <span className="hero-badge">
+            🌿 Indoor Plant Specialists
+          </span>
+          <h1>
+            Bring Nature <span className="hero-accent">Home.</span>
+          </h1>
+          <p className="hero-intro">
+            Discover calming greenery, healthier living, and beautiful indoor
+            plants that make every room feel fresh, vibrant, and alive. Paradise
+            Nursery helps you turn your home into a peaceful green retreat.
+          </p>
+          <button type="button" className="cta-btn" onClick={() => navigate("/products")}>
+            Get Started
+          </button>
+        </div>
+
+        <div className="landing-visual" aria-label="Paradise Nursery plant collection">
+          <div className="visual-card visual-card-large">
+            <div className="visual-badge">Best Sellers</div>
+            <h3>Air-purifying plants</h3>
+            <p>Healthy homes start with greener living.</p>
+          </div>
+          <div className="visual-card visual-card-small">
+            <span>100% plant care guidance</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 function App() {
-  const [cart, setCart] = useState([]);
-
-  // Add a plant to the cart — if it already exists, increase the quantity.
-  const addToCart = (plant) => {
-    setCart((prev) => {
-      const existing = prev.find((item) => item.id === plant.id);
-      if (existing) {
-        return prev.map((item) =>
-          item.id === plant.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      return [...prev, { ...plant, quantity: 1 }];
-    });
-  };
-
-  const increaseQuantity = (id) => {
-    setCart((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
-  };
-
-  // Never go below 1 — the decrease button is disabled at 1.
-  const decreaseQuantity = (id) => {
-    setCart((prev) =>
-      prev.map((item) =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-    );
-  };
-
-  const removeItem = (id) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  // Total item count shown in the navbar badge
-  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const cartCount = useSelector((state) =>
+    state.cart.reduce((sum, item) => sum + item.quantity, 0)
+  );
 
   return (
     <BrowserRouter>
-      <div className="app">
+      <div className="app-shell">
         <Navbar cartCount={cartCount} />
         <main className="main-content">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route
-              path="/products"
-              element={<Products cart={cart} onAddToCart={addToCart} />}
-            />
-            <Route
-              path="/cart"
-              element={
-                <Cart
-                  cart={cart}
-                  onIncrease={increaseQuantity}
-                  onDecrease={decreaseQuantity}
-                  onRemove={removeItem}
-                />
-              }
-            />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/products" element={<ProductList />} />
+            <Route path="/cart" element={<CartItem />} />
+            <Route path="/about" element={<AboutUs />} />
           </Routes>
         </main>
         <footer className="footer">

@@ -1,8 +1,7 @@
+/* eslint-disable react/prop-types */
 import { Link, useLocation } from "react-router-dom";
 import { ShoppingCart, Leaf } from "lucide-react";
 
-// Top navigation bar shown on every page.
-// Shows the logo, a link to the products page, and the cart icon with item count.
 function Navbar({ cartCount }) {
   const location = useLocation();
 
@@ -28,7 +27,13 @@ function Navbar({ cartCount }) {
         >
           Plants
         </Link>
-        <Link to="/cart" className="cart-link">
+        <Link
+          to="/about"
+          className={location.pathname === "/about" ? "nav-link active" : "nav-link"}
+        >
+          About Us
+        </Link>
+        <Link to="/cart" className="cart-link" aria-label="Shopping cart">
           <ShoppingCart size={22} />
           <span className="cart-count">{cartCount}</span>
         </Link>

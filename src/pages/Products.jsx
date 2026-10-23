@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useMemo } from "react";
 import { Search, X } from "lucide-react";
 import { plants, categories } from "../data/plants";

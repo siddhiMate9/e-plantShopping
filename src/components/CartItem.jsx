@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Minus, Plus, Trash2 } from "lucide-react";
 
 // One row in the shopping cart showing the plant, quantity controls, and remove button.

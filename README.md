@@ -1,97 +1,94 @@
-# Paradise Nursery
+# Paradise Nursery Shopping Application
 
-A complete e-commerce web application for buying indoor and house plants. Built with React, React Router, and Lucide icons.
+Paradise Nursery is a plant shopping web app that helps customers explore indoor plants, add them to a cart, and complete a simple front-end checkout flow. The project is built with React, Redux Toolkit, Vite, and React Router for a clean shopping experience.
 
 ## Features
 
-- **Landing Page** — Hero section with the tagline "Bring Nature Home," plant benefits, and a "Get Started" button.
-- **Product Listing Page** — 9 plants across 3 categories (Air-Purifying, Low-Maintenance, Decorative) with category filters, images, descriptions, and prices in Indian Rupees.
-- **Shopping Cart Page** — Add/remove items, adjust quantities, see per-item subtotals, total plant count, grand total, and an order confirmation on checkout.
-- **Navigation bar** with live cart item count that stays consistent across all pages.
-- Fully responsive for desktop, tablet, and mobile.
-- No backend or database required — cart state lives in React.
+- Nature-themed landing page with a clear "Get Started" call to action
+- Product listing with search and category filtering
+- Cart powered by Redux Toolkit with add, remove, and quantity updates
+- Cart summary with item totals, quantity count, and checkout confirmation
+- About Us section describing the brand mission and values
+- Responsive layout for desktop, tablet, and mobile screens
 
-## Tech Stack
+## Technologies Used
 
-- React 18 (Hooks: `useState`)
-- React Router DOM (page navigation)
-- Lucide React (icons)
-- Vite (build tool)
-- CSS3 (custom green/beige botanical theme)
+- React
+- Redux Toolkit
+- React Redux
+- React Router DOM
+- Vite
+- Lucide React
+- CSS3
 
-## Folder Structure
+## Project Structure
 
-```
+```text
 src/
-├── components/
-│   ├── Navbar.jsx       # Top nav bar with logo + cart badge
-│   ├── PlantCard.jsx    # Single product card
-│   └── CartItem.jsx     # Single cart row with qty controls
-├── pages/
-│   ├── Home.jsx         # Landing page
-│   ├── Products.jsx     # Product listing with category filters
-│   └── Cart.jsx         # Shopping cart + checkout confirmation
+├── App.jsx             # Landing page + route layout
+├── App.css             # App styling, landing page background, product, and cart styles
+├── AboutUs.jsx         # About Paradise Nursery section
+├── ProductList.jsx     # Product listing page with Redux-based cart actions
+├── CartItem.jsx        # Shopping cart page with quantity controls and totals
+├── CartSlice.jsx       # Redux Toolkit slice for cart reducers
+├── store.js            # Redux store configuration
 ├── data/
-│   └── plants.js        # Static plant catalog (9 plants, 3 categories)
-├── App.jsx              # Root: holds shared cart state + routes
-├── main.jsx             # Entry point
-├── App.css              # All component/page styles
-└── index.css            # Global base styles
+│   └── plants.js       # Plant catalog data
+├── components/
+│   ├── Navbar.jsx      # Top navigation with cart badge
+│   ├── PlantCard.jsx   # Card UI for products
+│   └── CartItem.jsx    # Small cart row component used inside the cart page
+├── pages/
+│   ├── Home.jsx        # Existing landing-page example (kept for reference)
+│   ├── Products.jsx    # Existing product listing example (kept for reference)
+│   └── Cart.jsx        # Existing cart example (kept for reference)
+├── index.css           # Global base styles
+├── main.jsx            # App entry point with Redux Provider
+└── assets/             # Static local assets, when present
 ```
 
-## Installation & Running
+## Local Setup
+
+1. Install dependencies:
 
 ```bash
 npm install
+```
+
+2. Start the app in development mode:
+
+```bash
 npm run dev
 ```
 
-Open the URL shown in the terminal (typically `http://localhost:5173`).
+3. Open the local URL shown in the terminal, usually:
 
-To create a production build:
+```text
+http://localhost:5173
+```
+
+4. To build for production:
 
 ```bash
 npm run build
 ```
 
-## How the Shopping Cart Works
+## App Flow
 
-1. **Cart state** lives in `App.jsx` via `useState`. The `cart` array and handler functions are passed down to the Products and Cart pages as props, keeping state consistent across navigation.
+1. Open the landing page.
+2. Click "Get Started" to go to the product catalog.
+3. Add plants to the cart.
+4. View the cart and update quantities or remove items.
+5. Continue shopping or confirm the checkout.
 
-2. **Adding to cart** — `addToCart(plant)` checks if the plant's `id` already exists in the cart. If so, it increments the quantity (no duplicates). Otherwise it adds the plant with `quantity: 1`.
+## Notes
 
-3. **Quantity controls** — `increaseQuantity` adds 1; `decreaseQuantity` subtracts 1 but never below 1 (the decrease button is disabled at quantity 1).
+- The cart uses Redux Toolkit so the cart count and totals stay consistent across pages.
+- Product data and pricing are stored in the static `src/data/plants.js` catalog.
+- This is a front-end shopping demo; no real payment processing is connected.
 
-4. **Removing** — `removeItem(id)` filters the plant out of the cart.
+## GitHub
 
-5. **Totals** — `cartCount` (sum of all quantities) is shown in the navbar badge. The Cart page computes `totalItems` and `grandTotal` (sum of price × quantity) on every render.
+Repository: https://github.com/shreyavaidya24-cpu/paradise-nursery
 
-6. **Checkout** — Clicking "Checkout" shows an order confirmation message. No payment processing; this is a front-end-only demo.
-
-## Testing Checklist
-
-- [ ] Home page loads with hero, benefits, and "Get Started" button.
-- [ ] "Get Started" navigates to the product listing page.
-- [ ] Each plant card shows image, name, price (₹), description, and "Add to Cart" button.
-- [ ] Adding a plant to cart updates the navbar badge.
-- [ ] Adding the same plant twice increases its quantity (button shows "Added").
-- [ ] Cart page shows each item's image, name, unit price, quantity, and subtotal.
-- [ ] Increase/decrease buttons update quantities and totals.
-- [ ] Decrease button is disabled at quantity 1.
-- [ ] Remove button removes the item and updates the cart badge and total.
-- [ ] Empty cart shows an empty-cart message with a "Browse Plants" button.
-- [ ] "Continue Shopping" navigates back to the products page.
-- [ ] "Checkout" shows an order confirmation message.
-- [ ] Cart count in the navbar persists across page navigation.
-- [ ] Layout is responsive on mobile, tablet, and desktop.
-
-## Pushing to GitHub
-
-```bash
-git init
-git add .
-git commit -m "Paradise Nursery shopping cart app"
-git branch -M main
-git remote add origin https://github.com/<your-username>/paradise-nursery.git
-git push -u origin main
-```
+Main branch files are published publicly from the repository root and the exact project file paths under the `src` folder.

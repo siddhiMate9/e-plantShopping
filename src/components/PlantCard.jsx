@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Plus, Check } from "lucide-react";
 import { useState } from "react";
 

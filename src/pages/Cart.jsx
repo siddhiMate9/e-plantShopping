@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCart, Check, ArrowLeft } from "lucide-react";
@@ -58,7 +59,7 @@ function Cart({ cart, onIncrease, onDecrease, onRemove }) {
         <div className="empty-cart">
           <ShoppingCart size={64} className="empty-cart-icon" />
           <h1>Your Cart is Empty</h1>
-          <p>Looks like you haven't added any plants yet.</p>
+          <p>Looks like you haven&apos;t added any plants yet.</p>
           <button className="cta-btn" onClick={() => navigate("/products")}>
             Browse Plants
           </button>
