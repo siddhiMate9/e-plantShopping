@@ -1,15 +1,14 @@
-/* eslint-disable react/prop-types */
+
 import { Plus, Check } from "lucide-react";
 import { useState } from "react";
 
-// A single product card shown in the grid on the Products page.
 function PlantCard({ plant, onAddToCart, inCart }) {
   const [imgError, setImgError] = useState(false);
 
   return (
     <article className="plant-card">
       <div className="plant-card-img-wrap">
-        {imgError ? (
+        {imgError || !plant.image ? (
           <div className="plant-card-fallback">
             <span>Image unavailable</span>
           </div>
@@ -22,18 +21,25 @@ function PlantCard({ plant, onAddToCart, inCart }) {
           />
         )}
       </div>
+
       <div className="plant-card-body">
         <h3 className="plant-card-name">{plant.name}</h3>
-        <p className="plant-card-price">₹{plant.price}</p>
+
+        <p className="plant-card-price">
+          ₹{plant.cost ?? plant.price}
+        </p>
+
         <p className="plant-card-desc">{plant.description}</p>
+
         <button
+          type="button"
           className="add-cart-btn"
           onClick={() => onAddToCart(plant)}
           disabled={inCart}
         >
           {inCart ? (
             <>
-              <Check size={18} /> Added
+              <Check size={18} /> Added to Cart
             </>
           ) : (
             <>
